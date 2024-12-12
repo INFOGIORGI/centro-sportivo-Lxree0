@@ -1,0 +1,5 @@
+S;Luca;Bianchi;X7Y9Z1
+I;Anna;Verdi;P3Q4R5
+S;Marco;Rossi;A1B2C3
+I;Elena;Ferrari;M8N6L4
+S;Giulia;Conti;T5U7V9

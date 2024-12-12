@@ -51,6 +51,12 @@ public class Centro {
         return false;
     }
 
+    public String getSoci(String codIstruttore){
+        return istruttori.get(codIstruttore).getSoci();
+            
+        
+    }
+
     public boolean assegna(String codSocio,String codIstruttore){
         
         if(istruttori.containsKey(codIstruttore)&&soci.containsKey(codSocio)){
@@ -82,11 +88,18 @@ public class Centro {
 
     public boolean addAttività(String codSocio,String codIstruttore,String data,String oraI,String oraF){
         if(istruttori.get(codIstruttore).checkSocio(codSocio)){
-            
-            if(!listaAttivita.get(data).controlloOra(oraI, oraF)){
-                Attivita a = new Attivita(soci.get(codSocio),istruttori.get(codIstruttore), data, oraI, oraF);
-                listaAttivita.put(data, a);
+            if(listaAttivita.containsKey(data)){
+                if(!listaAttivita.get(data).controlloOra(oraI, oraF)){
+                    Attivita a = new Attivita(soci.get(codSocio),istruttori.get(codIstruttore), data, oraI, oraF);
+                    listaAttivita.put(data, a);
+                    return true;
+                }
+                
             }
+            Attivita a = new Attivita(soci.get(codSocio),istruttori.get(codIstruttore), data, oraI, oraF);
+            listaAttivita.put(data, a);
+            return true;
+            
             
         }
         return false;

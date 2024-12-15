@@ -1,15 +1,16 @@
 import java.util.HashMap;
+import java.util.LinkedList;
 
 
 public class Centro {
     private HashMap<String,Istruttore> istruttori;
     private HashMap<String,Socio> soci;
-    private HashMap<String,Attivita> listaAttivita;
+    private LinkedList<Attivita> listaAttivita;
     public Centro() {
 
         istruttori= new HashMap<>();
         soci=new HashMap<>();
-        listaAttivita = new HashMap<>();
+        listaAttivita = new LinkedList<>();
     }
 
 
@@ -87,17 +88,21 @@ public class Centro {
 
 
     public boolean addAttività(String codSocio,String codIstruttore,String data,String oraI,String oraF){
+        Attivita a = new Attivita(soci.get(codSocio),istruttori.get(codIstruttore), data, oraI, oraF);
         if(istruttori.get(codIstruttore).checkSocio(codSocio)){
-            if(listaAttivita.containsKey(data)){
-                if(!listaAttivita.get(data).controlloOra(oraI, oraF)){
-                    Attivita a = new Attivita(soci.get(codSocio),istruttori.get(codIstruttore), data, oraI, oraF);
-                    listaAttivita.put(data, a);
-                    return true;
+            for (Attivita att : listaAttivita) {
+                if(att.getData().equals(data)){
+                    if(att.getOraInizio().compareTo(oraI)>=0&&att.getOraFine().compareTo(oraF)<=0||att.getOraInizio().compareTo(oraI)<=0 && att.getOraFine().compareTo(oraI)>=0||att.getOraInizio().compareTo(oraF)<=0&&att.getOraFine().compareTo(oraF)>=0){
+                        return false;
+                    }else{
+                        listaAttivita.add(a);
+                        return true;
+                    }
+                        
+                    
                 }
-                
             }
-            Attivita a = new Attivita(soci.get(codSocio),istruttori.get(codIstruttore), data, oraI, oraF);
-            listaAttivita.put(data, a);
+            listaAttivita.add(a);
             return true;
             
             

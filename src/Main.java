@@ -1,14 +1,22 @@
 import java.io.File;
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) {
-        String path = "input.txt";
+        String path = "";
         Centro c = new Centro();
         input(path, c);
+        String fileName = "output.txt";
+        String content = "Questo è un messaggio di esempio.";
 
-        
+        // Chiama il metodo per scrivere nel file
+        writeToFile(fileName, content);
+
+        System.out.println("Scrittura completata su " + fileName);
 
 
 
@@ -35,5 +43,18 @@ public class Main {
             // TODO: handle exception
         }
         
+    }
+
+     // Metodo per scrivere su un file di testo
+     public static void writeToFile(String fileName, String content) {
+        // Usa un BufferedWriter per migliorare le prestazioni di scrittura
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            // Scrive il contenuto nel file
+            writer.write(content);
+            writer.newLine(); // Aggiunge una nuova linea dopo il contenuto
+        } catch (IOException e) {
+            // Gestisce le eccezioni di I/O
+            System.err.println("Errore durante la scrittura su file: " + e.getMessage());
+        }
     }
 }

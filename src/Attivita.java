@@ -28,6 +28,10 @@ public class Attivita {
         }
         return false;
     }
+    public String getData() {
+        return data;
+    }
+   
 
 
 }
